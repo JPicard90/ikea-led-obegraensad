@@ -26,6 +26,7 @@ interface SidebarProps {
   onArtnetChange: (value: number, shouldSend?: boolean) => void;
   onPersistPlugin: () => void;
   onGOLDelayChange: (value: number, shouldSend?: boolean) => void;
+  onClaudeFontChange: (big: boolean) => void;
 }
 
 export const Sidebar: Component<SidebarProps> = (props) => {
@@ -145,6 +146,27 @@ export const Sidebar: Component<SidebarProps> = (props) => {
               />
               <div class="text-sm text-gray-600 text-right">{store?.GOLDelay}</div>
             </div>
+          </SidebarSection>
+        </Show>
+
+        <Show
+          when={
+            store?.plugins.find((plugin) => plugin.id === store.plugin)?.name ===
+              "Claude Thinking" && !store?.isActiveScheduler
+          }
+        >
+          <div class="my-6 border-t border-gray-200" />
+
+          <SidebarSection title="Lettering">
+            <label class="flex items-center gap-3 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={store?.claudeBigFont}
+                onChange={(e) => props.onClaudeFontChange(e.currentTarget.checked)}
+                class="w-4 h-4 accent-gray-700"
+              />
+              <span class="text-sm text-gray-600">Large letters (scrolling)</span>
+            </label>
           </SidebarSection>
         </Show>
 

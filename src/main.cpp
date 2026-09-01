@@ -31,6 +31,7 @@
 #include "plugins/BubblesPlugin.h"
 #include "plugins/CheckerboardPlugin.h"
 #include "plugins/CirclePlugin.h"
+#include "plugins/ClaudeThinkingPlugin.h"
 #include "plugins/CometPlugin.h"
 #include "plugins/DDPPlugin.h"
 #include "plugins/DrawPlugin.h"
@@ -317,6 +318,10 @@ void baseSetup()
   pluginManager.addPlugin(new DDPPlugin());
   pluginManager.addPlugin(new ArtNetPlugin());
 #endif
+
+  // Registered last so the ids of the pre-existing 30 plugins stay stable
+  // (the HA package maps effects by plugin id).
+  pluginManager.addPlugin(new ClaudeThinkingPlugin());
 
   Screen.clear();
   pluginManager.init();

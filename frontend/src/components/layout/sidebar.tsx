@@ -30,6 +30,7 @@ interface SidebarProps {
   onArtnetChange: (value: number, shouldSend?: boolean) => void;
   onPersistPlugin: () => void;
   onGOLDelayChange: (value: number, shouldSend?: boolean) => void;
+  onClaudeFontChange: (big: boolean) => void;
 }
 
 const toPercent = (value: number) => `${Math.round((value / 255) * 100)}%`;
@@ -208,6 +209,24 @@ export const Sidebar: Component<SidebarProps> = (props) => {
             onInput={(e) => props.onGOLDelayChange(parseInt(e.currentTarget.value, 10))}
             onPointerUp={(e) => props.onGOLDelayChange(parseInt(e.currentTarget.value, 10), true)}
           />
+        </SidebarSection>
+      </Show>
+      <Show
+        when={
+          store?.plugins.find((plugin) => plugin.id === store.plugin)?.name === "Claude Thinking" &&
+          !store?.isActiveScheduler
+        }
+      >
+        <SidebarSection title="Lettering">
+          <label class="flex cursor-pointer items-center justify-between gap-3 text-sm">
+            <span>Large letters (scrolling)</span>
+            <input
+              type="checkbox"
+              class="switch"
+              checked={store?.claudeBigFont}
+              onChange={(e) => props.onClaudeFontChange(e.currentTarget.checked)}
+            />
+          </label>
         </SidebarSection>
       </Show>
     </div>

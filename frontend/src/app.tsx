@@ -34,7 +34,8 @@ export const App: Component = () => {
       | "artnet"
       | "brightness"
       | "brightness-schedule"
-      | "goldelay",
+      | "goldelay"
+      | "claudefont",
     data?: Record<string, string | number | boolean> | { data: number[] },
   ) =>
     actions.send(
@@ -114,6 +115,11 @@ export const App: Component = () => {
   const handlePersistPlugin = () => {
     wsMessage("persist-plugin");
     toast(`Current mode set as default`, 1500);
+  };
+
+  const handleClaudeFontChange = (big: boolean) => {
+    actions?.setClaudeBigFont(big);
+    wsMessage("claudefont", { big: big ? 1 : 0 });
   };
 
   const renderMatrix = (disabled: boolean) => (
@@ -245,6 +251,7 @@ export const App: Component = () => {
           onArtnetChange={handleArtnetUniverseChange}
           onGOLDelayChange={handleGOLDelayChange}
           onPersistPlugin={handlePersistPlugin}
+          onClaudeFontChange={handleClaudeFontChange}
         />
       }
     />

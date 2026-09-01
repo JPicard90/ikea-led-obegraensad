@@ -34,6 +34,7 @@ export interface StoreActions {
   setArtnetUniverse: (artnetUniverse: number) => void;
   setGOLDelay: (GOLDelay: number) => void;
   setLivePreview: (enabled: boolean) => void;
+  setClaudeBigFont: (claudeBigFont: boolean) => void;
   send: (message: string | ArrayBuffer) => void;
 }
 
@@ -49,6 +50,7 @@ export interface Store {
   plugin: number;
   artnetUniverse: number;
   GOLDelay: number;
+  claudeBigFont: boolean;
   systemStatus: SYSTEM_STATUS;
   connectionState: () => number;
   connectionStatus?: string;

@@ -291,11 +291,12 @@ void ClaudeThinkingPlugin::drawWordBig()
       continue;
 
     char c = word[i];
-    if (c < systemFont.offset || (c - systemFont.offset) >= (int)systemFont.data.size())
+    if (c < systemFont.offset || (c - systemFont.offset) >= systemFont.charCount)
     {
       c = ' ';
     }
-    Screen.drawCharacter(x, BIG_TEXT_Y, Screen.readBytes(systemFont.data[c - systemFont.offset]), 8);
+    // Fonts live in flash since upstream d48d2cf: draw the glyph straight from there
+    Screen.drawBitmap(x, BIG_TEXT_Y, fontGlyph(systemFont, c - systemFont.offset), systemFont.sizeY, 8);
   }
 
   bool cursorVisible =
